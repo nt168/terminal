@@ -1,20 +1,21 @@
-# Migration for background images
+# 背景图像迁移
 
-How the background image is drawn has been changed since version 0.17.
-Intuitively, the background image is now drawn above the background color instead of below it.
-Technically, the background image is no longer blended with the background color.
+自 0.17 版起，绘制背景图像的方式发生了变化。
+直观地说，现在背景图像绘制在背景颜色之上，而不是在其下方。
+从技术上讲，背景图像不再与背景颜色进行混合。
 
-Any background image can be used but, of course, it should be chosen so that the terminal text can be easily read on it.
-Since an image may not be totally dark or light, you might want to use a translucent image as the background.
-As a result, the background image is mixed with the background color to improve readability.
-Opaque images can also be converted to translucent ones with a few steps.
+可以使用任意背景图像，不过当然需要选择能够让终端文本易于阅读的图像。
+由于图像可能并非完全暗或完全亮，您可能希望使用半透明图像作为背景。
+因此，背景图像会与背景颜色混合以提升可读性。
+不透明的图像也可以经过几个步骤转换为半透明图像。
 
-A common usage is an effect similar to previous qtermwidget versions or other terminal emulators.
-To achieve that, you can convert the background image to a translucent one with the transparency level matching the original terminal transparency.
-For example, if the original terminal transparency of qtermwidget was 25% (or 75% in some other terminal emulators), a converted image with transparency 25% will work as usual.
-The conversion can be done via ImageMagick, GraphicsMagick, GIMP or Krita.
-Here is an example command using ImageMagick:
+一种常见的用法是实现类似旧版 qtermwidget 或其他终端模拟器的效果。
+为此，可以将背景图像转换为与原始终端透明度匹配的半透明图像。
+例如，如果 qtermwidget 原始终端的透明度为 25%（或其他终端模拟器中的 75%），则转换后透明度为 25% 的图像将像往常一样工作。
+可以通过 ImageMagick、GraphicsMagick、GIMP 或 Krita 进行转换。
+以下是使用 ImageMagick 的示例命令：
 
     $ convert original_image.jpg -matte -channel A +level 0,25% +channel translucent_image.png
 
-You may also want to change the terminal transparency to 0% if you do not want to see another window or the desktop below the terminal.
+如果您不想在终端下方看到其他窗口或桌面，也可以将终端透明度改为 0%。
+
