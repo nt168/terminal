@@ -1,19 +1,17 @@
-/*  Copyright (C) 2008 e_k (e_k@users.sourceforge.net)
+/*  版权所有 (C) 2008 e_k (e_k@users.sourceforge.net)
 
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
+    该库是自由软件；您可以按照自由软件基金会发布的
+    GNU 通用公共许可证的条款重新分发和/或修改它；
+    可以是许可证的第 2 版，或（由您选择）任何更高版本。
 
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
+    发布该库是希望它能发挥作用，
+    但没有任何担保；甚至不包含适销性或
+    适用于特定目的的默示保证。更多细节请参阅
+    GNU 通用公共许可证。
 
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+    您应该已经随本库一起收到 GNU 通用公共许可证的副本；
+    若没有，请写信至自由软件基金会：
+    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA。
 */
 
 
@@ -72,14 +70,14 @@ int main(int argc, char *argv[])
     mainWindow->setCentralWidget(console);
     mainWindow->resize(600, 400);
 
-    // info output
+    // 信息输出
     qDebug() << "* INFO *************************";
     qDebug() << " availableKeyBindings:" << console->availableKeyBindings();
     qDebug() << " keyBindings:" << console->keyBindings();
     qDebug() << " availableColorSchemes:" << console->availableColorSchemes();
     qDebug() << "* INFO END *********************";
 
-    // real startup
+    // 实际启动
     QObject::connect(console, &QTermWidget::finished, mainWindow, &QMainWindow::close);
 
     mainWindow->show();

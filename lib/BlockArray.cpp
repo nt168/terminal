@@ -1,32 +1,30 @@
 /*
-    This file is part of Konsole, an X terminal.
-    Copyright (C) 2000 by Stephan Kulow <coolo@kde.org>
+    本文件是 Konsole（一个 X 终端）的一部分。
+    版权所有 (C) 2000 Stephan Kulow <coolo@kde.org>
 
-    Rewritten for QT4 by e_k <e_k at users.sourceforge.net>, Copyright (C)2008
+    由 e_k <e_k at users.sourceforge.net> 为 QT4 重写，版权所有 (C)2008
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+    该程序是自由软件；您可以按照自由软件基金会发布的
+    GNU 通用公共许可证第 2 版或（由您选择）任何更高版本的条款
+    重新发布和/或修改它。
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+    发布该程序是希望它会有用，
+    但没有任何担保；甚至不包含适销性或
+    适用于特定目的的默示保证。详情请参阅
+    GNU 通用公共许可证。
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-    02110-1301  USA.
+    您应该已经随本程序收到 GNU 通用公共许可证的副本；
+    如果没有，请写信至自由软件基金会，
+    地址：51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA。
 
 */
 
 #include <QtDebug>
 
-// Own
+// 自有
 #include "BlockArray.h"
 
-// System
+// 系统
 #include <sys/mman.h>
 #include <sys/param.h>
 #include <unistd.h>
@@ -262,7 +260,7 @@ void moveBlock(FILE * fion, int cursor, int newpos, char * buffer2)
 
 void BlockArray::decreaseBuffer(size_t newsize)
 {
-    if (index < newsize) { // still fits in whole
+    if (index < newsize) { // 仍然完全适合
         return;
     }
 
@@ -272,7 +270,7 @@ void BlockArray::decreaseBuffer(size_t newsize)
         return;
     }
 
-    // The Block constructor could do something in future...
+    // Block 构造函数将来可能会执行某些操作...
     char * buffer1 = new char[blocksize];
 
     FILE * fion = fdopen(dup(ion), "w+b");
@@ -311,21 +309,21 @@ void BlockArray::decreaseBuffer(size_t newsize)
 
 void BlockArray::increaseBuffer()
 {
-    if (index < size) { // not even wrapped once
+    if (index < size) { // 还未绕回一次
         return;
     }
 
     int offset = (current + size + 1) % size;
-    if (!offset) { // no moving needed
+    if (!offset) { // 不需要移动
         return;
     }
 
-    // The Block constructor could do something in future...
+    // Block 构造函数将来可能会执行某些操作...
     char * buffer1 = new char[blocksize];
     char * buffer2 = new char[blocksize];
 
     int runs = 1;
-    int bpr = size; // blocks per run
+    int bpr = size; // 每次运行的块数
 
     if (size % offset == 0) {
         bpr = size / offset;
@@ -342,7 +340,7 @@ void BlockArray::increaseBuffer()
 
     int res;
     for (int i = 0; i < runs; i++) {
-        // free one block in chain
+        // 在链中释放一个块
         int firstblock = (offset + i) % size;
         res = fseek(fion, firstblock * blocksize, SEEK_SET);
         if (res) {
